@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>argos_core_mission</name>
+  <version>0.1.0</version>
+  <description>ARGOS mission core — pure C++ mission execution FSM (no ROS2)</description>
+  <maintainer email="santiagoflores028@gmail.com">Santiago Flores</maintainer>
+  <license>MIT</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <export><build_type>ament_cmake</build_type></export>
+</package>
