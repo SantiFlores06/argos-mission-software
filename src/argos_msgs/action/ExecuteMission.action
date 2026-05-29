@@ -1,0 +1,14 @@
+# Goal
+string mission_id
+bool return_to_home_on_complete
+---
+# Result
+bool success
+string final_status
+uint32 waypoints_completed
+float64 total_distance_m
+float64 mission_duration_sec
+---
+# Feedback
+argos_msgs/MissionStatus current_status
+float64 elapsed_sec

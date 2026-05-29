@@ -1,0 +1,14 @@
+# Goal
+geometry_msgs/PoseStamped target
+float32 acceptance_radius_m
+float32 speed_mps
+---
+# Result
+bool success
+float64 distance_traveled_m
+float64 duration_sec
+---
+# Feedback
+float64 distance_remaining_m
+float64 estimated_time_remaining_sec
+geometry_msgs/PoseStamped current_pose

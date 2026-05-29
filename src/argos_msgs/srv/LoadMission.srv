@@ -1,0 +1,7 @@
+geometry_msgs/PoseStamped[] waypoints
+float32 acceptance_radius_m
+float32 cruise_speed_mps
+---
+bool success
+string message
+uint32 waypoints_loaded
