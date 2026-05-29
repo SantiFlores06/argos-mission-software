@@ -67,3 +67,7 @@ vcpkg_installed/
 # test output & cache
 Testing/
 .cache/
+
+# Documentation (tracked locally, not in repo)
+*.md
+!README.md
