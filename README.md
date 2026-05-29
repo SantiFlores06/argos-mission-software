@@ -5,7 +5,7 @@
 
 *Software de misión autónomo embarcado para vehículos aéreos no tripulados*
 
-![Estado](https://img.shields.io/badge/estado-definición%20de%20arquitectura-blue)
+![Estado](https://img.shields.io/badge/estado-implementación%20fase%209.1-orange)
 ![ROS2](https://img.shields.io/badge/ROS2-Humble%20%2F%20Iron-informational)
 ![Lenguaje](https://img.shields.io/badge/lenguaje-C%2B%2B17-informational)
 ![Licencia](https://img.shields.io/badge/licencia-Propietaria-red)
@@ -36,17 +36,20 @@ ARGOS es una **capa de software de ejecución autónoma de misiones** que corre 
 un companion computer a bordo de un UAV. Se ubica entre el flight controller (PX4)
 y la Ground Control Station (GCS), actuando como el cerebro de misión local del
 vehículo.
+
+```
 ┌─────────────────────────────────┐
 │         GCS  (tierra)           │
 └─────────────────┬───────────────┘
-│  enlace cifrado
+                  │  enlace cifrado
 ┌─────────────────▼───────────────┐
 │     ARGOS  (companion computer) │
 └─────────────────┬───────────────┘
-│
+                  │
 ┌─────────────────▼───────────────┐
 │     PX4  (flight controller)    │
 └─────────────────────────────────┘
+```
 
 Si PX4 es el piloto automático que mantiene el vehículo estable, ARGOS es el
 copiloto inteligente que decide **qué hacer**, **cuándo hacerlo** y **qué hacer
@@ -98,17 +101,44 @@ certificable ni adaptable por la industria de defensa argentina. ARGOS lo es.
 
 ## Estado del proyecto
 
-El proyecto se encuentra actualmente en la **fase de definición de arquitectura**.
-La implementación sigue la finalización de un plan de formación estructurado en
-sistemas de integración con ROS2.
-
 | Fase | Descripción | Estado |
 |------|-------------|--------|
-| Definición de arquitectura | Nodos, máquinas de estado, interfaces, schemas de mensajes | ✅ Completo |
-| Prueba de concepto | Nodos principales funcionales en simulación | 🔲 En curso |
-| Demostrador SIL | Misión completa en PX4 SITL + Gazebo | 🔲 Planificado |
-| v2.0 | Autonomía extendida, redundancia de sensores, interfaz GCS | 🔲 Planificado |
-| v3.0 | Integración en hardware real + verificación formal | 🔲 Planificado |
+| 9.1 | Core Infrastructure — mensajes, autoridad, FDIR, navegación, misión, nodos ROS2 | ✅ Completo |
+| 9.2 | Authority & Lifecycle FSM — máquina de 10 estados + mission_executor_node | 🔲 En curso |
+| 9.3 | Navigation — state estimator y navigation manager nodes | 🔲 Planificado |
+| 9.4 | Fault Management — fault monitor y recovery manager nodes | 🔲 Planificado |
+| 9.5 | Mission Execution (BT) — behavior tree engine | 🔲 Planificado |
+| 9.6 | GCS Bridge — canal cifrado tierra-aire | 🔲 Planificado |
+| 9.7 | PX4 Integration — bridge MAVLink/uXRCE | 🔲 Planificado |
+| 9.8 | SIL Demonstrator — misión completa en PX4 SITL + Gazebo Harmonic | 🔲 Planificado |
+| 9.9 | Hardening — sanitizers, fuzzing, análisis de cobertura | 🔲 Planificado |
+
+La Fase 9.1 entregó 9 packages en `src/`, incluyendo interfaces puras C++17,
+implementaciones con Google Test y dos nodos ROS2 lifecycle funcionales.
+
+---
+
+## Desarrollo asistido por IA
+
+Este proyecto utiliza **[Claude Code](https://claude.ai/code)** (Anthropic) como
+herramienta de desarrollo a lo largo de todo el proceso de implementación.
+
+Claude Code se usó específicamente para:
+
+- **Diseño de arquitectura** — definición del patrón Core/Node (`argos_core_*` sin
+  dependencias de ROS2, `argos_*_node` como adaptadores lifecycle delgados), decisiones
+  de separación de responsabilidades entre subsistemas y diseño de interfaces C++17
+- **Generación de código** — implementación de clases, interfaces, mocks de Google Test
+  y CMakeLists.txt bajo las restricciones de la arquitectura definida
+- **Revisión técnica** — identificación de deuda técnica (ej. TD-06: uso incorrecto de
+  `find_package` vs `ament_target_dependencies` en un workspace colcon), análisis de
+  alternativas de diseño y sus trade-offs
+- **Gestión del repositorio** — organización de commits por feature, reescritura de
+  historial con `git filter-branch`, resolución de divergencias entre ramas locales y
+  remotas
+
+Toda decisión de diseño fue revisada y aprobada por el autor. Claude Code opera como
+par de programación senior, no como reemplazo del criterio de ingeniería.
 
 ---
 
