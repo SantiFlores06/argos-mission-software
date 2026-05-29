@@ -1,0 +1,13 @@
+argos_recovery_manager:
+  ros__parameters:
+    # Subsystem → preferred recovery strategy
+    # Strategies tried in order; first matching canHandle() wins.
+    strategy_priority:
+      - EmergencyLand   # checked first (battery critical must land immediately)
+      - ReturnToHome    # GCS link loss, EKF divergence
+      - HoldPosition    # GPS degradation (temporary)
+
+    gcs_link_timeout_s: 15.0
+    gps_dropout_timeout_s: 3.0
+    battery_critical_pct: 15.0
+    battery_warning_pct: 30.0

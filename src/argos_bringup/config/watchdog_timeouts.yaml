@@ -1,0 +1,10 @@
+argos_system_watchdog:
+  ros__parameters:
+    timeout_multiplier: 2.0
+    check_period_ms: 100
+    critical_nodes:
+      - argos_authority_manager
+      - argos_fault_monitor
+      - argos_mission_executor
+      - argos_state_estimator
+      - argos_navigation_manager
